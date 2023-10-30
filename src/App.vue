@@ -1,49 +1,30 @@
 <template>
-  <img src="./static/images.png" width="50" height="50"/>
-  <h1>Minimal Vue Webpack</h1>
-   <div>{{ answer }}</div>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </div>
+  <router-view/>
 </template>
 
-<script>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-import { defineComponent } from 'vue'; 
-import axios from "axios";
+#nav {
+  padding: 30px;
+}
 
-export default defineComponent ({
-  name: "App",
-  data() {
-    return {
-      answer: {},
-    };
-  },
-  methods: {
-    async getAnswer() {
-        const API_URL = "/api";
-        // const API_URL = "https://yesno.wtf/api";
-        const { data } = await axios.get(API_URL);
-        this.answer = data;
-    },
-  },
-  beforeMount() {
-    this.getAnswer();
-  },
-});
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
 
-// export default defineComponent({
-//     name: 'App'
-// });
-
-</script>
-
-<style scoped>
-    h1 {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
-    }
-    img {
-        display: block;
-        margin: auto;
-    }
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
 </style>
-
