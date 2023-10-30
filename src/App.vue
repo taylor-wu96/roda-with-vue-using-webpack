@@ -18,8 +18,10 @@ export default defineComponent ({
   },
   methods: {
     async getAnswer() {
-      const { data } = await axios.get("https://yesno.wtf/api");
-      this.answer = data;
+        const API_URL = "/api";
+        // const API_URL = "https://yesno.wtf/api";
+        const { data } = await axios.get(API_URL);
+        this.answer = data;
     },
   },
   beforeMount() {
