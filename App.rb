@@ -20,13 +20,20 @@ class App < Roda
     r.assets
     r.public
 
+    # api part
     r.get 'api' do
       response['Content-Type'] = 'application/json'
 
       JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
     end
 
+    # app part
+
     r.root do
+      File.read(File.join('dist', 'index.html'))
+    end
+
+    r.get String do |_parsed_request|
       File.read(File.join('dist', 'index.html'))
     end
   end
