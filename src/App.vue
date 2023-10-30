@@ -1,15 +1,35 @@
 <template>
   <img src="./static/images.png" width="50" height="50"/>
   <h1>Minimal Vue Webpack</h1>
+   <div>{{ answer }}</div>
 </template>
 
 <script>
 
 import { defineComponent } from 'vue'; 
+import axios from "axios";
 
-export default defineComponent({
-    name: 'App'
+export default defineComponent ({
+  name: "App",
+  data() {
+    return {
+      answer: {},
+    };
+  },
+  methods: {
+    async getAnswer() {
+      const { data } = await axios.get("https://yesno.wtf/api");
+      this.answer = data;
+    },
+  },
+  beforeMount() {
+    this.getAnswer();
+  },
 });
+
+// export default defineComponent({
+//     name: 'App'
+// });
 
 </script>
 
