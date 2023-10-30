@@ -1,4 +1,5 @@
 require 'roda'
+require 'json'
 class App < Roda
   plugin :render
   plugin :assets, js: ['main.bundle.js'], path: 'dist/'
@@ -18,6 +19,12 @@ class App < Roda
     #       }
     r.assets
     r.public
+
+    r.get 'api' do
+      response['Content-Type'] = 'application/json'
+
+      JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
+    end
 
     r.root do
       File.read(File.join('dist', 'index.html'))
