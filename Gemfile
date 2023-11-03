@@ -8,8 +8,7 @@ gem 'pg'
 gem 'puma'
 gem 'roda'
 gem 'sequel'
-gem 'sinatra'
-gem 'sinatra-contrib'
+gem 'figaro', '~>1.2'
 
 
 group :development, :test do

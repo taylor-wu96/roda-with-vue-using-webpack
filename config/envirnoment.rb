@@ -1,19 +1,23 @@
 require 'sequel'
-require 'dotenv/load'
+require 'figaro'
 require 'roda'
 require 'logger'
-# Sequel.connect(ENV.fetch("DATABASE_URL"), logger: Logger.new($stderr))
 module Todo
+  # Configuration for the API
   class Api < Roda
-    # plugin :environments
+    plugin :environments
 
-    db_url = 'sqlite://backend_app/db/store/development.db'
+    # load config secrets into local environment variables (ENV)
+    Figaro.application = Figaro::Application.new(
+      environment: environment, # rubocop:disable Style/HashSyntax
+      path: File.expand_path('config/secrets.yml')
+    )
+    Figaro.load
 
-    # db_url = ENV['DATABASE_URL'] || 'sqlite://backend_app/db/store/development.db'
-    puts(db_url)
-
-    # DB = Sequel.connect(db_url, logger: Logger.new($stderr))
-    DB = Sequel.connect(db_url)
+    # Make the environment variables accessible to other classes
+    def self.config = Figaro.env
+    db_url = ENV['DATABASE_URL']
+    DB = Sequel.connect(db_url, logger: Logger.new($stderr))
     def self.DB = DB # rubocop:disable Naming/MethodName
   end
 end
