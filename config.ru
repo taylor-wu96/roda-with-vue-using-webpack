@@ -1,3 +1,3 @@
 # config.ru
-require './App'
+require './backend_app/controllers/App'
 run App.freeze.app

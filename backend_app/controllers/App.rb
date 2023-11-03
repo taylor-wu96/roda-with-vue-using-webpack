@@ -1,5 +1,6 @@
 require 'roda'
 require 'json'
+
 class App < Roda
   plugin :render
   plugin :assets, js: ['main.bundle.js'], path: 'dist/'
@@ -21,6 +22,22 @@ class App < Roda
     r.public
 
     # api part
+    r.post 'todos' do
+      todo = TodoService.new.create(r.params)
+      status 201
+      todo.to_json
+    end
+
+    r.on 'todos/:id' do |id|
+      TodoService.new.update(id, r.params)
+      status 204
+    end
+
+    r.on 'delete', 'todos/:id' do |id|
+      TodoService.new.delete(id)
+      status 204
+    end
+
     r.get 'api' do
       response['Content-Type'] = 'application/json'
 
