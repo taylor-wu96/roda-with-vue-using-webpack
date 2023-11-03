@@ -69,7 +69,7 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.1)
     ruby2_keywords (0.0.5)
-    sequel (5.73.0)
+    sequel (5.74.0)
       bigdecimal
     sinatra (3.1.0)
       mustermann (~> 3.0)
@@ -82,11 +82,12 @@ GEM
       rack-protection (= 3.1.0)
       sinatra (= 3.1.0)
       tilt (~> 2.0)
+    sqlite3 (1.6.8-arm64-darwin)
     tilt (2.3.0)
     zeitwerk (2.6.12)
 
 PLATFORMS
-  x86_64-darwin-21
+  arm64-darwin-23
 
 DEPENDENCIES
   dotenv
@@ -100,6 +101,7 @@ DEPENDENCIES
   sequel
   sinatra
   sinatra-contrib
+  sqlite3 (~> 1.4)
 
 BUNDLED WITH
-   2.3.8
+   2.4.6

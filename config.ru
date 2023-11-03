@@ -1,3 +1,4 @@
 # config.ru
-require './backend_app/controllers/App'
-run App.freeze.app
+require './require_app'
+require_app
+run Todo::App.freeze.app

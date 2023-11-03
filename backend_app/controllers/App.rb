@@ -1,57 +1,103 @@
 require 'roda'
 require 'json'
 
-class App < Roda
-  plugin :render
-  plugin :assets, js: ['main.bundle.js'], path: 'dist/'
-  plugin :public, root: 'dist'
-  route do |r|
-    # r.run proc { |_parsed_request|
-    #         # Set content type
-    #         response = Roda::RodaResponse.new
-    #         response['Content-Type'] = 'text/html'
+module Todo
+  # Web controller for Todo
+  class App < Roda
+    plugin :render
+    plugin :assets, js: ['main.bundle.js'], path: 'dist/'
+    plugin :public, root: 'dist'
+    route do |r|
+      r.assets
+      r.public
 
-    #         # Read HTML file
-    #         html = File.read('views/index.html')
+      r.on 'todos' do
+        r.post do
+          # todo = JSON.parse(r.params)
+          data= r.params
+          puts('data',data)
+          # Call the method with the correct number of arguments
+          todo = Todo.create(data)
+          response.status = 201
+          todo.to_json
+          # r.redirect '/todos'
+        end
+        r.get String do |todo_id|
+          response['Content-Type'] = 'application/json'
+          output = { data: Todo.first(id: todo_id)}
+          response.status = 200
+          JSON.pretty_generate(output)
+        end
+        r.get do
+          response['Content-Type'] = 'application/json'
+          puts('Todo.all', Todo.all)
+          output = { data: Todo.all }
+          response.status = 200
+          JSON.pretty_generate(output)
+        end
 
-    #         # Write response
-    #         response.write(html)
-    #         response.finish
-    #       }
-    r.assets
-    r.public
+      end
 
-    # api part
-    r.post 'todos' do
-      todo = TodoService.new.create(r.params)
-      status 201
-      todo.to_json
-    end
+      r.on 'todos/:id' do |id|
+        puts(id)
+        TodoService.new.update(id, r.params)
+        status 204
+      end
 
-    r.on 'todos/:id' do |id|
-      TodoService.new.update(id, r.params)
-      status 204
-    end
+      r.on 'delete', 'todos/:id' do |id|
+        TodoService.new.delete(id)
+        status 204
+      end
 
-    r.on 'delete', 'todos/:id' do |id|
-      TodoService.new.delete(id)
-      status 204
-    end
+      r.get 'api' do
+        puts('Todo.all', Todo.all)
+        response['Content-Type'] = 'application/json'
 
-    r.get 'api' do
-      response['Content-Type'] = 'application/json'
+        # JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
+        output = { data: Todo.all }
+          response.status = 200
+          JSON.pretty_generate(output)
+      end
 
-      JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
-    end
+      # app part
 
-    # app part
+      r.root do
+        File.read(File.join('dist', 'index.html'))
+      end
 
-    r.root do
-      File.read(File.join('dist', 'index.html'))
-    end
-
-    r.get String do |_parsed_request|
-      File.read(File.join('dist', 'index.html'))
+      r.get String do |_parsed_request|
+        File.read(File.join('dist', 'index.html'))
+      end
     end
   end
 end
+
+# require 'roda'
+# require 'json'
+# module Todo
+#   class App < Roda
+#     plugin :render
+#     plugin :assets, js: ['main.bundle.js'], path: 'dist/'
+#     plugin :public, root: 'dist'
+#     route do |r|
+#       r.assets
+#       r.public
+
+#       r.get 'api' do
+#         response['Content-Type'] = 'application/json'
+
+#         JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
+#       end
+
+#       # app part
+
+#       r.root do
+#         File.read(File.join('dist', 'index.html'))
+#       end
+
+#       r.get String do |_parsed_request|
+#         File.read(File.join('dist', 'index.html'))
+#       end
+#     end
+#   end
+# end
