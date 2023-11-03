@@ -16,7 +16,7 @@ module Todo
 
     # Make the environment variables accessible to other classes
     def self.config = Figaro.env
-    db_url = ENV.delete('DATABASE_URL')
+    db_url = ENV['DATABASE_URL']
     DB = Sequel.connect(db_url, logger: Logger.new($stderr))
     def self.DB = DB # rubocop:disable Naming/MethodName
   end
