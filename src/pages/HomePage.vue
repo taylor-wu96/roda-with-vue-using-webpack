@@ -11,6 +11,7 @@
       <li v-for="todo in todos" :key="todo.id">
         <input type="checkbox" v-model="todo.completed">
         {{ todo.name }}
+        <button @click="removeTodo(todo)">Remove</button>
       </li>  
     </ul>
 
@@ -34,14 +35,16 @@ export default {
       })
       this.todos.push(response.data)
       this.newTodoText = ''
+      this.fetchTodos()
+    },
+    async removeTodo(todo) {
+    await axios.delete(`/todos/${todo.id}`)
+    this.todos = this.todos.filter(t => t.id !== todo.id)
     },
     
     async fetchTodos() {
       const response = await axios.get('/todos')
-      console.log('response',response.data.data)
-      console.log('response2',response.data)
-      console.log('response3',response.data.data[0])
-      this.todos = response.data.data[0]
+      this.todos = response.data.data.map(todo => todo.data.attributes)  
     }
   },
   

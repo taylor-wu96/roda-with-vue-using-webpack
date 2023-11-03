@@ -7,6 +7,9 @@ module Todo
     plugin :render
     plugin :assets, js: ['main.bundle.js'], path: 'dist/'
     plugin :public, root: 'dist'
+
+    plugin :all_verbs
+    plugin :halt
     route do |r|
       r.assets
       r.public
@@ -36,6 +39,15 @@ module Todo
           JSON.pretty_generate(output)
         end
 
+        r.delete String do |id|
+          Todo.where(id: id).delete 
+          # Todo.delete(id)
+          response['Content-Type'] = 'application/json'
+          response.status = 200
+          JSON.pretty_generate({ success: true, message: 'delete the todo' })
+        # rescue StandardError
+        #   r.halt 500, { message: 'Database error' }.to_json
+        end
       end
 
       r.on 'todos/:id' do |id|
@@ -44,10 +56,7 @@ module Todo
         status 204
       end
 
-      r.on 'delete', 'todos/:id' do |id|
-        TodoService.new.delete(id)
-        status 204
-      end
+      
 
       r.get 'api' do
         puts('Todo.all', Todo.all)
