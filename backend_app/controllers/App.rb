@@ -14,7 +14,7 @@ module Todo
       r.on 'todos' do
         r.post do
           # todo = JSON.parse(r.params)
-          data= r.params
+          data= JSON.parse(r.body.read)
           puts('data',data)
           # Call the method with the correct number of arguments
           todo = Todo.create(data)
@@ -71,33 +71,3 @@ module Todo
     end
   end
 end
-
-# require 'roda'
-# require 'json'
-# module Todo
-#   class App < Roda
-#     plugin :render
-#     plugin :assets, js: ['main.bundle.js'], path: 'dist/'
-#     plugin :public, root: 'dist'
-#     route do |r|
-#       r.assets
-#       r.public
-
-#       r.get 'api' do
-#         response['Content-Type'] = 'application/json'
-
-#         JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
-#       end
-
-#       # app part
-
-#       r.root do
-#         File.read(File.join('dist', 'index.html'))
-#       end
-
-#       r.get String do |_parsed_request|
-#         File.read(File.join('dist', 'index.html'))
-#       end
-#     end
-#   end
-# end

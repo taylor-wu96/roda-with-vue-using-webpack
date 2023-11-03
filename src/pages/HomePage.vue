@@ -1,49 +1,52 @@
 <template>
-  <img src="../static/images.png" width="50" height="50"/>
-  <h1>Minimal Vue Webpack</h1>
-   <div>{{ answer }}</div>
+  <div>
+    <h1>Todo List</h1>
+    
+    <form @submit.prevent="addTodo">
+      <input v-model="newTodoText" placeholder="Add todo">
+      <button>Add</button>
+    </form>
+    
+    <ul>
+      <li v-for="todo in todos" :key="todo.id">
+        <input type="checkbox" v-model="todo.completed">
+        {{ todo.name }}
+      </li>  
+    </ul>
+
+  </div>
 </template>
 
 <script>
+import axios from 'axios'
 
-import { defineComponent } from 'vue'; 
-import axios from "axios";
-
-export default defineComponent ({
-  name: "App",
+export default {
   data() {
     return {
-      answer: {},
-    };
+      newTodoText: '',
+      todos: []
+    }
   },
   methods: {
-    async getAnswer() {
-        const API_URL = "/api";
-        // const API_URL = "https://yesno.wtf/api";
-        const { data } = await axios.get(API_URL);
-        this.answer = data;
+    async addTodo() {
+      const response = await axios.post('/todos', {
+        name: this.newTodoText
+      })
+      this.todos.push(response.data)
+      this.newTodoText = ''
     },
+    
+    async fetchTodos() {
+      const response = await axios.get('/todos')
+      console.log('response',response.data.data)
+      console.log('response2',response.data)
+      console.log('response3',response.data.data[0])
+      this.todos = response.data.data[0]
+    }
   },
-  beforeMount() {
-    this.getAnswer();
-  },
-});
-
-// export default defineComponent({
-//     name: 'App'
-// });
-
+  
+  created() {
+    this.fetchTodos()
+  }
+}
 </script>
-
-<style scoped>
-    h1 {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
-    }
-    img {
-        display: block;
-        margin: auto;
-    }
-</style>
-
