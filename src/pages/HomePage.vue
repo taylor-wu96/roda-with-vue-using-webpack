@@ -3,7 +3,8 @@
     <h1>Todo List</h1>
     
     <form @submit.prevent="addTodo">
-      <input v-model="newTodoText" placeholder="Add todo">
+      <input v-model="newTodoText" placeholder="Add todo" required>
+      <input type="datetime-local" v-model="dueDate" >
       <button>Add</button>
     </form>
     
@@ -11,6 +12,7 @@
       <li v-for="todo in todos" :key="todo.id">
         <input type="checkbox" v-model="todo.completed">
         {{ todo.name }}
+        {{ todo.due_date }}
         <button @click="removeTodo(todo)">Remove</button>
       </li>  
     </ul>
@@ -31,10 +33,12 @@ export default {
   methods: {
     async addTodo() {
       const response = await axios.post('/todos', {
-        name: this.newTodoText
+        name: this.newTodoText,
+        due_date: this.dueDate || null
       })
       this.todos.push(response.data)
       this.newTodoText = ''
+      this.dueDate = ''
       this.fetchTodos()
     },
     async removeTodo(todo) {
