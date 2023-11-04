@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'dry-validation'
 gem 'figaro', '~>1.2'
 gem 'foreman'
 gem 'puma'
@@ -16,9 +15,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'dotenv'
   gem 'pry'
-  gem 'rspec'
   gem 'sqlite3', '~> 1.4'
 end
 

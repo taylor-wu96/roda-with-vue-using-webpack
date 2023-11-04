@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-require './require_app'
-
-# Rakefile
-require 'dotenv/load'
-require 'logger'
+require_relative './require_app'
 
 namespace :db do
   task :config do
