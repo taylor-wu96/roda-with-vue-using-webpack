@@ -1,48 +1,56 @@
-# Roda project combine with Vue.js using webpack
+# Demonstration Todo Web App Combining Roda + Vue.js w/ Webpack
 
-This is a small project to combine Roda and Vue.js webpack
-We implement a simple allow you to add a new todo the todo list using sequel and sqlite3 in ruby
+This is a small project to demonstrate how to combine Roda and Vue.js with webpack.
+Running the application allows you to add/delete a todos the todo list.
 
-## How to set-up the project locally
+## Setting up the project locally
 
 1. set up the frontend module
 
-```shell
-npm i
-```
+  ```shell
+  npm i
+  ```
 
 2. build the frontend module
 
-```shell
-npm run prod
-```
+  ```shell
+  npm run prod
+  ```
 
 3. set the backend
 
-```shell
-bundle config set --local without 'production'
-bundle install
-```
+  ```shell
+  bundle config set --local without 'production'
+  bundle install
+  ```
 
 4. set the envirnment
 
-Rename the `./config/secrets_exapmle.yml` to `./config/secrets.yml`
+  Rename the `./config/secrets_exapmle.yml` to `./config/secrets.yml`
 
 5. set the db
 
+  ```shell
+  bundle exec rake db:migrate
+  ```
+
+## Run the web app
+
 ```shell
-bundle exec rake db:migrate
+bundle exec foreman start
 ```
 
-6.  Run the server
+or:
 
 ```shell
-bundle exec puma config.ru
+bundle exec puma
 ```
 
-## system architecture
+## System Architecture
 
-### frontend
+The application is split into files/folders for back-end and front-end. See the relevant files for each part of the application below.
+
+### Frontend
 
 ```text
 [dist]
@@ -78,7 +86,7 @@ package.json
     └── webpack.prod.js
 ```
 
-### backend
+### Backend
 
 ```text
 .ruby-version
@@ -89,6 +97,9 @@ Procfile.dev
 Rakefile
 
 [backend_app]
+    ├── [config]
+        ├── envirnoment.rb
+        └── secrets_example.yml
     ├── [controllers]
         └── App.rb
     ├── [db]
@@ -98,10 +109,6 @@ Rakefile
             └── development.db
     └── [models]
         └── todo.rb
-
-[config]
-    ├── envirnoment.rb
-    └── secrets_exapmle.yml
     
 config.ru
 require_app.rb
