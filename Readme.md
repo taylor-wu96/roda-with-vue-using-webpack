@@ -18,6 +18,7 @@ npm run prod
 ```
 
 3. set the backend
+
 ```shell
 bundle config set --local without 'production'
 bundle install
