@@ -7,40 +7,43 @@ We implement a simple allow you to add a new todo the todo list using sequel and
 
 1. set up the frontend module
 
-```
-$ npm i
+```shell
+npm i
 ```
 
 2. build the frontend module
 
-```
-$ npm run prod
+```shell
+npm run prod
 ```
 
 3. set the backend
-```
-$ bundle install
+```shell
+bundle config set --local without 'production'
+bundle install
 ```
 
 4. set the envirnment
-- rename the `./config/secrets_exapmle.yml` to `./config/secrets.yml`
+
+Rename the `./config/secrets_exapmle.yml` to `./config/secrets.yml`
 
 5. set the db
-```
-$ rake db:migrate
+
+```shell
+bundle exec rake db:migrate
 ```
 
 6.  Run the server
-```
-$ bundle exec puma config.ru
+
+```shell
+bundle exec puma config.ru
 ```
 
 ## system architecture
 
 ### frontend
 
-```
-
+```text
 [dist]
     ├── favicon.ico
     ├── index.html
@@ -76,7 +79,7 @@ package.json
 
 ### backend
 
-```
+```text
 .ruby-version
 Gemfile
 Gemfile.lock
@@ -101,5 +104,4 @@ Rakefile
     
 config.ru
 require_app.rb
-
 ```

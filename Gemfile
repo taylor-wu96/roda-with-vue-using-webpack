@@ -3,13 +3,17 @@
 source 'https://rubygems.org'
 
 gem 'dry-validation'
+gem 'figaro', '~>1.2'
 gem 'foreman'
-gem 'pg'
 gem 'puma'
+gem 'rake'
 gem 'roda'
 gem 'sequel'
-gem 'figaro', '~>1.2'
+gem 'tilt'
 
+group :production do
+  gem 'pg'
+end
 
 group :development, :test do
   gem 'dotenv'
@@ -18,3 +22,6 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'
 end
 
+group :development do
+  gem 'rubocop'
+end

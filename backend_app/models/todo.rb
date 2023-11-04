@@ -3,24 +3,29 @@
 require 'sequel'
 require 'json'
 module Todo
+  # Domain model for a single todo
   class Todo < Sequel::Model
-    plugin :timestamps, update_on_create: true
-    
     def to_json(options = {})
-    JSON(
-      {
-        data: {
-          type: 'todo',
-          attributes: {
-            id: id,
-            name:name,
-            due_date: due_date,
-            completed: completed
+      JSON(
+        {
+          data: {
+            type: 'todo',
+            attributes:
           }
-        }
-      },
-      options
-    )
-  end
+        },
+        options
+      )
+    end
+
+    private
+
+    def attributes
+      {
+        id:,
+        name:,
+        due_date:,
+        completed:
+      }
+    end
   end
 end

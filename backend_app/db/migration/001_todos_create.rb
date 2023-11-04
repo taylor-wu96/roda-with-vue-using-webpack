@@ -8,7 +8,6 @@ Sequel.migration do
       String :name, null: false
       DateTime :due_date
       Boolean :completed, default: false
-
     end
   end
 end
