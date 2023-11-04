@@ -10,7 +10,7 @@ module Todo
     # load config secrets into local environment variables (ENV)
     Figaro.application = Figaro::Application.new(
       environment: environment, # rubocop:disable Style/HashSyntax
-      path: File.expand_path('config/secrets.yml')
+      path: File.expand_path('backend_app/config/secrets.yml')
     )
     Figaro.load
 

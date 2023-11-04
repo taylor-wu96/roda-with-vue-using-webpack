@@ -1,4 +1,4 @@
 .bundle/
 node_modules/
-config/secrets.yml
+**/config/secrets.yml
 *.db
