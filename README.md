@@ -1,46 +1,58 @@
-# Roda project combine with Vue.js using webpack
+# Demonstration Todo Web App Combining Roda + Vue.js w/ Webpack
 
-This is a small project to combine Roda and Vue.js webpack
-We implement a simple allow you to add a new todo the todo list using sequel and sqlite3 in ruby
+This is a small project to demonstrate how to combine Roda and Vue.js with webpack.
+Running the application allows you to add/delete a todos the todo list.
 
-## How to set-up the project locally
+## Setting up the project locally
 
 1. set up the frontend module
 
-```
-$ npm i
-```
+  ```shell
+  npm i
+  ```
 
 2. build the frontend module
 
-```
-$ npm run prod
-```
+  ```shell
+  npm run prod
+  ```
 
 3. set the backend
-```
-$ bundle install
-```
+
+  ```shell
+  bundle config set --local without 'production'
+  bundle install
+  ```
 
 4. set the envirnment
-- rename the `./config/secrets_exapmle.yml` to `./config/secrets.yml`
+
+  Rename the `./backend_app/config/secrets_example.yml` to `./backend_app/config/secrets.yml`
 
 5. set the db
-```
-$ rake db:migrate
-```
 
-6.  Run the server
-```
-$ bundle exec puma config.ru
-```
+  ```shell
+  bundle exec rake db:migrate
+  ```
 
-## system architecture
+## Run the web app
 
-### frontend
-
+```shell
+bundle exec foreman start
 ```
 
+or:
+
+```shell
+bundle exec puma
+```
+
+## System Architecture
+
+The application is split into files/folders for back-end and front-end. See the relevant files for each part of the application below.
+
+### Frontend
+
+```text
 [dist]
     ├── favicon.ico
     ├── index.html
@@ -74,9 +86,9 @@ package.json
     └── webpack.prod.js
 ```
 
-### backend
+### Backend
 
-```
+```text
 .ruby-version
 Gemfile
 Gemfile.lock
@@ -85,6 +97,9 @@ Procfile.dev
 Rakefile
 
 [backend_app]
+    ├── [config]
+        ├── envirnoment.rb
+        └── secrets_example.yml
     ├── [controllers]
         └── App.rb
     ├── [db]
@@ -94,12 +109,7 @@ Rakefile
             └── development.db
     └── [models]
         └── todo.rb
-
-[config]
-    ├── envirnoment.rb
-    └── secrets_exapmle.yml
     
 config.ru
 require_app.rb
-
 ```

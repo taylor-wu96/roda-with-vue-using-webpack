@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'roda'
 require 'json'
 
 module Todo
-  # Web controller for Todo
+  # Backend web app controller
   class App < Roda
     # app using
     plugin :render
@@ -11,6 +13,8 @@ module Todo
     # api using
     plugin :all_verbs
     plugin :halt
+
+    # rubocop:disable Metrics/BlockLength
     route do |r|
       r.public
 
@@ -22,12 +26,14 @@ module Todo
           response.status = 201
           todo.to_json
         end
+
         r.get String do |todo_id|
           response['Content-Type'] = 'application/json'
           output = { data: Todo.first(id: todo_id)}
           response.status = 200
           JSON.pretty_generate(output)
         end
+
         r.get do
           response['Content-Type'] = 'application/json'
           output = { data: Todo.all }
@@ -36,7 +42,7 @@ module Todo
         end
 
         r.delete String do |id|
-          Todo.where(id: id).delete 
+          Todo.where(id: id).delete
           response['Content-Type'] = 'application/json'
           response.status = 200
           JSON.pretty_generate({ success: true, message: 'delete the todo' })
@@ -48,8 +54,8 @@ module Todo
       r.get 'api' do
         response['Content-Type'] = 'application/json'
         JSON.generate({ success: true, message: 'Welcome to ruby roda vue world' })
-          response.status = 200
-          JSON.pretty_generate(output)
+        response.status = 200
+        JSON.pretty_generate(output)
       end
 
       # app part
@@ -62,5 +68,6 @@ module Todo
         File.read(File.join('dist', 'index.html'))
       end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end
