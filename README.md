@@ -26,7 +26,7 @@ Running the application allows you to add/delete a todos the todo list.
 
 4. set the envirnment
 
-  Rename the `./config/secrets_exapmle.yml` to `./config/secrets.yml`
+  Rename the `./backend_app/config/secrets_example.yml` to `./backend_app/config/secrets.yml`
 
 5. set the db
 
