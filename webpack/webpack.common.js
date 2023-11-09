@@ -2,6 +2,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 
 //Just to help us with directories and folders path
 const __base = path.resolve(__dirname, '..');
@@ -25,7 +28,13 @@ module.exports = {
             favicon: path.resolve(__src, 'static', 'favicon.ico'),
             template: path.resolve(__src, 'templates', 'index.html'),
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+          }),
+        Components({
+            resolvers: [ElementPlusResolver()],
+          }),
     ],
 
     //Webpack dosent know how to handler all type of files and what to do with them, so this section 
