@@ -1,49 +1,120 @@
 <template>
-  <div class="container">
+
+  <el-container class="todo-list">
   
-    <h1 class="title">Todo List</h1>  
-
-    <form @submit.prevent="addTodo" class="form">
-      <input class="input" type="text" v-model="newTodoText" placeholder="Add todo" required>
-
-      <input class="input" type="datetime-local" v-model="dueDate">
+    <el-header>
+      <h1>Todo List</h1>
+    </el-header>
+  
+    <el-main>
+    
+      <el-row class="form">
       
-      <button class="button">Add</button>
-    </form>
-
-    <ul class="todo-list">
-      <li v-for="todo in todos" :key="todo.id" class="todo-item">
-
-        <input class="checkbox" type="checkbox" v-model="todo.completed">
-
-        <span :class="{ 'completed': todo.completed }">
-          {{ todo.name }}
-        </span>
-
-        <span class="due-date">
-          {{ todo.due_date }}
-        </span>
-
-        <button class="delete-btn" @click="removeTodo(todo)">
-          -
-        </button>
-
-      </li>
-    </ul>
-
-  </div>
+        <el-col :xs="24" :sm="16">
+          <el-input v-model="newTodoText" placeholder="Add todo"/>
+        </el-col>
+        
+        <el-col :xs="24" :sm="8">
+          <el-date-picker 
+            v-model="dueDate"
+            type="datetime"
+            placeholder="Pick a due date"/>
+        </el-col>
+        
+        <el-col :xs="24">
+          <el-button 
+            type="primary" 
+            round
+            @click="addTodo">
+            Add
+          </el-button>
+        </el-col>
+        
+      </el-row>
+      
+      <el-row class="todos">
+      
+        <el-col 
+          v-for="todo in todos" 
+          :key="todo.id"
+          :xs="24"
+          :sm="12"
+          :md="8"
+          :lg="6">
+        
+          <el-card shadow="hover" class="todo-card">
+          
+            <el-checkbox v-model="todo.completed"/>
+            
+            <div 
+              :class="{'is-completed': todo.completed}">
+              {{ todo.name }}
+            </div>
+          
+            <el-tooltip content="Due date" placement="top">
+              <div class="due-date">
+                {{ todo.due_date }}
+              </div>
+            </el-tooltip>
+            
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              circle
+              @click="removeTodo(todo)"/>
+            
+          </el-card>
+          
+        </el-col>
+        
+      </el-row>
+      
+    </el-main>
+  
+  </el-container>
+  
 </template>
 
 <script>
+import { 
+  ElContainer,
+  ElHeader,
+  ElMain,
+  ElForm,
+  ElRow, 
+  ElCol,
+  ElInput,
+  ElDatePicker,
+  ElButton,
+  ElCheckbox, 
+  ElTooltip
+} from 'element-plus'
 import axios from 'axios'
 
 export default {
+
+  components: {
+    ElContainer,
+    ElHeader,
+    ElMain,
+    ElForm,
+    ElRow,
+    ElCol,
+    ElInput,
+    ElDatePicker,
+    ElButton,
+    ElCheckbox,
+    ElTooltip
+  },
+
   data() {
     return {
       newTodoText: '',
+      dueDate: null,
       todos: []
     }
   },
+
   methods: {
     async addTodo() {
       const response = await axios.post('/todos', {
@@ -69,106 +140,36 @@ export default {
   created() {
     this.fetchTodos()
   }
+  
 }
 </script>
 
-
 <style>
+/* Element Plus default styles */
 
-/* Material design styles */
-
-.container {
-  box-shadow: 0 2px 4px rgba(0,0,0,.1); 
-  border-radius: 3px;
-  padding: 20px;
-  max-width: 500px;
-  margin: 50px auto; 
+.due-date {
+  color: #999;
+  font-size: 14px; 
 }
 
-.title {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.form {
-  display: flex;
-}
-
-.input {
-  border: none;
-  border-bottom: 1px solid #ddd;
-  padding: 8px;
-  font-size: 16px; 
-  flex: 1;
-  margin-right: 15px;
-}
-
-.datetime {
-  max-width: 30%;
-}
-
-.button {
-  border-radius: 4px;
-  border: none;
-  background: #2196F3;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-  padding: 10px 15px;
-  transition: background .3s; 
-}
-
-.button:hover {
-  background: #1976D2;
-  cursor: pointer;
-}
-
-/* UI/UX */
-
-.todo-item {
-  display: flex; 
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 0;
-  border-bottom: 1px solid #eee; 
-}
-
-.todo-details {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox {
-  margin-right: 10px;
-} 
-
-.completed {
+.is-completed {
   text-decoration: line-through;
   color: #999;
 }
 
-.due-date {
-  margin-left: 15px;
-  color: #999;
-  font-size: 14px;
+.todo-list {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.delete-btn {
-  border-radius: 50%;
-  border: none;
-  background: #F44336;
-  color: white;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .3s;
+.form {
+  margin-bottom: 20px;
 }
 
-.delete-btn:hover {
-  background: #D32F2F;
-  cursor: pointer; 
+.todo-card {
+  padding: 20px;
+  margin-bottom: 20px;
 }
+
 
 </style>
