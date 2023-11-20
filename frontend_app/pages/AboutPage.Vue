@@ -1,7 +1,7 @@
 <template>
   <img src="../static/images.png" width="50" height="50"/>
-  <h1>Roda combine VueJS Practice</h1>
-  <div> This is a demo project for a simple todo list </div>
+    <h1>Roda combine VueJS Practice</h1>
+    <div> This is a demo project for a simple todo list </div>
 </template>
 <style scoped>
     h1 {

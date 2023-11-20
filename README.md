@@ -46,6 +46,18 @@ or:
 bundle exec puma
 ```
 
+## How to use the hot-reload on development mode(Recommended)
+
+
+```shell
+
+npm run dev # just run on the background and not using this server , let webpack detect code change automatically when you save the code
+
+bundle exec puma # run the server , use the server to watch the code change
+
+```
+
+
 ## System Architecture
 
 The application is split into files/folders for back-end and front-end. See the relevant files for each part of the application below.
