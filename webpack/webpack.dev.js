@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 //Configure dev enviroment by combining common configuration and adding some more options
 module.exports = merge(common, {
     mode: 'development',
-    cache: false,
+    // cache: false,
     // devtool: 'inline-source-map',
     // productionSourceMap: false,
     devServer: {
