@@ -63,12 +63,15 @@ When you're finished working:
   bundle exec rake db:migrate
   ```
 
-## Run the web app
+## Run the Web App
 
 ```shell
 puma config.ru
 ```
 You can access through `http://0.0.0.0:9292` for the frontend app and backend API.
+
+## Deployment
+- Deploy your project to heroku. [Check out](doc/heroku.md)
 
 ## System Architecture
 
