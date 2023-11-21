@@ -17,8 +17,8 @@ Before you begin, ensure you have the following installed:
 
 1. Clone the repository, and open the project in visual studio code
 2. Reopen in Container
-    - After opening the project, a popup may appear in the lower right corner asking if you want to reopen the folder in a container. Click "Reopen in Container".
-    - If the popup does not appear, press `F1` or `Ctrl+Shift+P` to open the command palette, type "Remote-Containers: Reopen in Container", and select it.
+- After opening the project, a popup may appear in the lower right corner asking if you want to reopen the folder in a container. Click "Reopen in Container".
+- If the popup does not appear, press `F1` or `Ctrl+Shift+P` to open the command palette, type "Remote-Containers: Reopen in Container", and select it.
 3. Wait for the Container to Build
 - Visual Studio Code will use the `.devcontainer.json` file to build the container. This process can take some time, especially on the first run.
 
@@ -55,7 +55,7 @@ When you're finished working:
 
 4. set the envirnment
 
-  Copy the `./backend_app/config/secrets_example.yml` to `./backend_app/config/secrets.yml`
+- Copy the `./backend_app/config/secrets_example.yml` to `./backend_app/config/secrets.yml`
 
 5. set the db
 
@@ -68,7 +68,7 @@ When you're finished working:
 ```shell
 puma config.ru
 ```
-You can access through `http://0.0.0.0:9292` for the frontend app and backend API.
+- You can access through `http://0.0.0.0:9292` for the frontend app and backend API.
 
 ## Deployment
 - Deploy your project to heroku. [Check out](doc/heroku.md)
