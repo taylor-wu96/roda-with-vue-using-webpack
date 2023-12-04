@@ -3,6 +3,7 @@
   <h1>Roda combine VueJS Practice</h1>
   <div> This is a demo project for a simple todo list </div>
 </template>
+
 <style scoped>
     h1 {
         width: 100%;

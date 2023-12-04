@@ -5,3 +5,5 @@
   */
 
 /*! #__NO_SIDE_EFFECTS__ */
+
+/*! Element Plus Icons Vue v2.1.0 */
