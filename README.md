@@ -1,6 +1,6 @@
-# Demonstration Todo Web App Combining Roda + Vue.js w/ Webpack
+# Demonstration Todo Web App Combining Roda + Vue.js w/ Rspack
 
-This is a small project to demonstrate how to combine Roda and Vue.js with webpack.
+This is a small project to demonstrate how to combine Roda and Vue.js with Rspack.
 Running the application allows you to add/delete a todos the todo list.
 
 ## Setting up the project locally
@@ -14,7 +14,7 @@ Running the application allows you to add/delete a todos the todo list.
 2. build the frontend module
 
   ```shell
-  npm run prod
+  npm run build
   ```
 
 3. set the backend
@@ -51,7 +51,7 @@ bundle exec puma
 
 ```shell
 
-npm run dev # just run on the background and not using this server , let webpack detect code change automatically when you save the code
+npm run serve # just run on the background and not using this server , let webpack detect code change automatically when you save the code
 
 bundle exec puma # run the server , use the server to watch the code change
 
@@ -92,10 +92,9 @@ The application is split into files/folders for back-end and front-end. See the 
 package-lock.json
 package.json
 
-[webpack]
-    ├── webpack.common.js
-    ├── webpack.dev.js
-    └── webpack.prod.js
+[rspack]
+    ├── rspack.dev.js
+    └── rspack.prod.js
 ```
 
 ### Backend
